@@ -10,9 +10,10 @@
 #define Scheduler_hpp
 
 #include <stdio.h>
+#include <iostream>
 #include <map>
 #include <vector>
-#include <chrono>
+
 #include "Task.hpp"
 using namespace std;
 struct TaskDetails
@@ -22,16 +23,20 @@ struct TaskDetails
     int periodSecs;
     int durationSecs;
     int delaySecs;
+    thread taskThread;
 };
 class Scheduler: public Task
 {
     int m_gapSec;
     vector<TaskDetails> m_taskVector;
     map<int,int> m_taskMap; // map with scheduled time in sec and the index of task in vector
+    thread* m_thread;
+    bool m_isRunning;
 public:
-    int run() ;
-    int start();
-    int stop();
+    Scheduler();
+    void run() ;
+    void start();
+    void stop();
     void setTaskInterval(int gapSecs);
     void add(Task* task, const char *name, int periodSecs, int durationSecs);
     void remove(Task* task);

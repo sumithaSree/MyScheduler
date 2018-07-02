@@ -10,12 +10,18 @@
 #define Task_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <chrono>
+#include <thread>
+using namespace std;
 class Task
 {
+    int m_durationSec;
 public:
-    virtual int run() = 0;
-    virtual int start() = 0;
-    virtual int stop() = 0;
+    virtual void run();
+    virtual void start();
+    virtual void stop();
+    virtual void init(int dur);
     
 };
 
